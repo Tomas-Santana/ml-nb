@@ -7,8 +7,6 @@ from lib.LinearRegression import LinearRegression as MyLinearRegression
 
 df = pd.read_csv("datasets/pitch_data_2024_cleaned.csv")
 
-df_numeric = df[["SO", "BB", "WHIP", "W", "L", "ERA"]] # Omit IP since will not be used for regression
-
 
 x = np.array(df[["SO", "BB", "WHIP", "W", "L"]]).reshape(-1, 5)
 y = np.array(df["ERA"]).reshape(-1, 1)
