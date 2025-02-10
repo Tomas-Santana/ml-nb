@@ -23,14 +23,14 @@ class LinearRegression:
             y: FloatVector
         ) -> Self:
         """
-        Get the coefficients of the linear regression model. We use OLS, b = (X^T X)^{-1} X^T y to calculate the coefficients.
+        Get the coefficients of the linear regression model. It uses OLS, b = (X^T X)^{-1} X^T y to calculate the coefficients.
         """
         if X.shape[0] != y.shape[0]:
             raise Exception("X and y must have the same number of rows")
 
         # Add a column of ones to account for the intercept term
-        X = np.concatenate((np.ones((X.shape[0], 1)), X), axis=1)
-        b = np.linalg.inv(X.T @ X) @ X.T @ y
+        M = np.concatenate((np.ones((X.shape[0], 1)), X), axis=1)
+        b = np.linalg.inv(M.T @ M) @ M.T @ y
         # Separate the intercept from the coefficients. Makes it easier to get predictions since adding a column of ones to the feature matrix is not necessary.
         return cls(b[1:], b[0])
     
@@ -47,6 +47,22 @@ class LinearRegression:
             raise Exception("y_true and y_pred must have the same number of rows")
         
         return math.sqrt(np.mean(np.subtract(y_true, y_pred) ** 2))
+
+    def u_rmse(
+            self, 
+            X: FloatMatrix, 
+            y: FloatVector
+        ) -> float:
+        """
+        Calculate the root mean squared error between the true and predicted values, with the features and true values. RMSE = \\sqrt{\\frac{u}{n} Where u is the residual sum of squares ((y_true - y_pred)** 2).sum() and n is the number of rows in y_true.
+        """
+
+        if X.shape[0] != y.shape[0]:
+            raise Exception("X and y must have the same number of rows")
+        
+        y_pred = self.predict(X)
+        return self.rmse(y, y_pred)
+
     
     def predict(
             self, 
@@ -59,6 +75,7 @@ class LinearRegression:
         if X.shape[1] != self.b_.shape[0]:
             raise Exception("The number of columns in X must match the number coefficients of the model")
         
+        # This matrix multiplication is the same as the dot product between every set of feature values and the coefficients.
         return X @ self.b_ + self.intersect_
     
     def score(
