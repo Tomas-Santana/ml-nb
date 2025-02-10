@@ -16,6 +16,24 @@ class LinearRegression:
         self.intersect_ = intersect
         pass
     
+    @classmethod
+    def fit(
+            cls, 
+            X: FloatMatrix, 
+            y: FloatVector
+        ) -> Self:
+        """
+        Get the coefficients of the linear regression model. We use OLS, b = (X^T X)^{-1} X^T y to calculate the coefficients.
+        """
+        if X.shape[0] != y.shape[0]:
+            raise Exception("X and y must have the same number of rows")
+
+        # Add a column of ones to account for the intercept term
+        X = np.concatenate((np.ones((X.shape[0], 1)), X), axis=1)
+        b = np.linalg.inv(X.T @ X) @ X.T @ y
+        # Separate the intercept from the coefficients. Makes it easier to get predictions since adding a column of ones to the feature matrix is not necessary.
+        return cls(b[1:], b[0])
+    
     def rmse(
             self, 
             y_true: FloatVector, 
@@ -29,22 +47,6 @@ class LinearRegression:
             raise Exception("y_true and y_pred must have the same number of rows")
         
         return math.sqrt(np.mean(np.subtract(y_true, y_pred) ** 2))
-    
-    @classmethod
-    def fit(
-            cls, 
-            X: FloatMatrix, 
-            y: FloatVector
-        ) -> Self:
-        """
-        Get the coefficients of the linear regression model. We use OLS, b = (X^T X)^{-1} X^T y to calculate the coefficients.
-        """
-        if X.shape[0] != y.shape[0]:
-            raise Exception("X and y must have the same number of rows")
-
-        X = np.concatenate((np.ones((X.shape[0], 1)), X), axis=1)
-        b = np.linalg.inv(X.T @ X) @ X.T @ y
-        return cls(b[1:], b[0])
     
     def predict(
             self, 

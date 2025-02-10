@@ -1,3 +1,8 @@
+"""
+Data from https://baseball-reference.com
+https://www.baseball-reference.com/leagues/majors/2024-standard-pitching.shtml
+"""
+
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -7,8 +12,7 @@ from lib.LinearRegression import LinearRegression as MyLinearRegression
 
 df = pd.read_csv("datasets/pitch_data_2024_cleaned.csv")
 
-
-x = np.array(df[["SO", "BB", "WHIP", "W", "L"]]).reshape(-1, 5)
+x = np.array(df[["SO/BB", "IP", "WHIP", "W", "L"]]).reshape(-1, 5)
 y = np.array(df["ERA"]).reshape(-1, 1)
 
 x_train, x_test, y_train, y_test = train_test_split(x, y)
