@@ -13,9 +13,9 @@ reduced_df = reduced_df.dropna()
 
 # Some players changed teams during the season, so we have rows that show cummulative stats for the player. Team name in these columns is r'\d+TM' where \d+ is the number of teams the player played for. We will drop these rows.
 
-reduced_df = reduced_df = reduced_df[~reduced_df.Team.str.contains(r'\d+TM')]
+reduced_df = reduced_df[~reduced_df.Team.str.contains(r'\d+TM')]
 
-# Remove pitchers with less than 9 IP (ERA can get very high with low IP)
+# Remove pitchers with less than 9 IP (ERA can get very high with low IP, since ERA = 9 * ER / IP)
 
 reduced_df = reduced_df[reduced_df.IP > 9]
 

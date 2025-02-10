@@ -12,7 +12,9 @@ from lib.LinearRegression import LinearRegression as MyLinearRegression
 
 df = pd.read_csv("datasets/pitch_data_2024_cleaned.csv")
 
+# Reshape the data to 2D arrays
 x = np.array(df[["SO/BB", "IP", "WHIP", "W", "L"]]).reshape(-1, 5)
+
 y = np.array(df["ERA"]).reshape(-1, 1)
 
 x_train, x_test, y_train, y_test = train_test_split(x, y)
