@@ -10,10 +10,10 @@ class LinearRegression:
     def __init__(
                 self, 
                 b: FloatVector,
-                intersect: float = 0.0
+                intercept: float = 0.0
             ) -> None:
         self.b_ = b
-        self.intersect_ = intersect
+        self.intercept_ = intercept
         pass
     
     @classmethod
@@ -76,7 +76,7 @@ class LinearRegression:
             raise Exception("The number of columns in X must match the number coefficients of the model")
         
         # This matrix multiplication is the same as the dot product between every set of feature values and the coefficients.
-        return X @ self.b_ + self.intersect_
+        return X @ self.b_ + self.intercept_
     
     def score(
             self, 
