@@ -37,17 +37,34 @@ cleaned = df[[
 'B365H',
 'B365D',
 'B365A',
-'BFH',
-'BFD',
-'BFA',
 'PSH',
 'PSD',
 'PSA',
+'WHH',
+'WHD',
+'WHA',
+'Max>2.5',
+'Max<2.5',
+'Avg>2.5',
+'Avg<2.5',
+'AHh',
+'B365AHH',
+'B365AHA',
+'PAHH',
+'PAHA',
+'MaxAHH',
+'MaxAHA',
 ]]
+
+# cast all int64 to float64
+cleaned = cleaned.astype('float64')
 
 cleaned.dropna(inplace=True)
 # data normalization
-cleaned.iloc[:, 2:] -= np.average(cleaned.iloc[:, 2:], axis=0)
-cleaned.iloc[:, 2:] /= np.std(cleaned.iloc[:, 2:], axis=0)
+cleaned.iloc[:, 1:] -= np.average(cleaned.iloc[:, 1:], axis=0)
+cleaned.iloc[:, 1:] /= np.std(cleaned.iloc[:, 1:], axis=0)
 
 cleaned.to_csv('datasets/premier/20-25_cleaned.csv', index=False)
+
+# number of rows
+print("Data points:", cleaned.shape[0])

@@ -1,5 +1,5 @@
 import math
-from git import Optional
+from typing import Optional
 import numpy as np
 from typing import Any, Self 
 from .LinearModel import LinearModel, FloatMatrix, FloatVector
@@ -27,7 +27,7 @@ class LinearRegression(LinearModel):
         except Exception as e:
             raise e
         
-        self.b_ = np.linalg.inv(X_centered.T @ X_centered) @ X_centered.T @ y_centered
+        self.b_ = np.linalg.lstsq(X_centered.T @ X_centered, X_centered.T @ y_centered)[0]
         self.intercept_ = self._get_intercept()
         return self
 
