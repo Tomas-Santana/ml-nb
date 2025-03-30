@@ -27,7 +27,7 @@ class LinearRegression(LinearModel):
         except Exception as e:
             raise e
         
-        self.b_ = np.linalg.lstsq(X_centered.T @ X_centered, X_centered.T @ y_centered)[0]
+        self.b_ = np.linalg.lstsq(X_centered.T @ X_centered, X_centered.T @ y_centered, rcond=None)[0]
         self.intercept_ = self._get_intercept()
         return self
 

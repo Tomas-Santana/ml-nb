@@ -21,7 +21,7 @@ class Ridge(LinearModel):
         except Exception as e:
             raise e
 
-        self.b_ = np.linalg.lstsq(X_centered.T @ X_centered + self.alpha_ * np.identity(X_centered.shape[1]), X_centered.T @ y_centered)[0]
+        self.b_ = np.linalg.lstsq(X_centered.T @ X_centered + self.alpha_ * np.identity(X_centered.shape[1]), X_centered.T @ y_centered, rcond=None)[0]
         self.intercept_ = self._get_intercept()
 
         return self
