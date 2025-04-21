@@ -6,7 +6,7 @@ import numpy as np
 from emnist_cnn import EMNISTCNN, CLASS_MAP
 
 class LetterClassifierApp:
-    def __init__(self, root, model_path="src/8/checkpoints/emnist_cnn_epoch_6.pth"):
+    def __init__(self, root, model_path="src/8/checkpoints/emnist_cnn_epoch_10.pth"):
         self.model_path = model_path
         
         self.root = root
