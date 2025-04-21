@@ -134,7 +134,5 @@ def train(epochs=10, batch_size=16, lr=1e-3, checkpoint_path=None):
             print(f"Test Accuracy: {acc:.4f}")
 
 
-
-
 if __name__ == "__main__":
     train(epochs=10, batch_size=16, lr=1e-3)
