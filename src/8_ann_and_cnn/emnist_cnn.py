@@ -125,7 +125,7 @@ def train(epochs=10, batch_size=16, lr=1e-3, checkpoint_path=None):
         scheduler.step()
         print(f"Epoch [{epoch+1}/{epochs}], Loss: {running_loss/len(train_loader):.4f}")
         # save model checkpoint
-        torch.save(model.state_dict(), f"src/8/checkpoints/emnist_cnn_epoch_{epoch+1}.pth")
+        torch.save(model.state_dict(), f"src/8_ann_and_cnn/checkpoints/emnist_cnn_epoch_{epoch+1}.pth")
 
         # Evaluate on the test set every epoch
         with torch.no_grad():
