@@ -1,3 +1,4 @@
+from re import A
 import pandas as pd
 import plotly.express as px
 from sklearn.cluster import KMeans
@@ -9,7 +10,8 @@ print(df["LAT"].describe())
 print(df["LON"].describe())
 
 VEHICULE_THEFT = 510
-df = df[df["Crm Cd"] == VEHICULE_THEFT]
+ASSAULT_WITH_DEADLY_WEAPON = 230
+df = df[df["Crm Cd"] == ASSAULT_WITH_DEADLY_WEAPON]
 
 df = df[(df["LAT"] < df["LAT"].mean() + 5 * df["LAT"].std()) & (df["LAT"] > df["LAT"].mean() - 5 * df["LAT"].std())]
 df = df[(df["LON"] < df["LON"].mean() + 5 * df["LON"].std()) & (df["LON"] > df["LON"].mean() - 5 * df["LON"].std())]
@@ -32,10 +34,3 @@ def plot_elbow_method(df, max_k=10):
     plt.show()
 
 plot_elbow_method(df, max_k=10)
-
-
-
-# fig = px.scatter_mapbox(df, lat="LAT", lon="LON", color="Crm Cd", hover_name="Crm Cd")
-# fig.update_layout(mapbox_style="open-street-map")
-# fig.update_layout(mapbox_zoom=10, mapbox_center_lat=df["LAT"].mean(), mapbox_center_lon=df["LON"].mean())
-# fig.show()

@@ -7,6 +7,7 @@ df = pd.read_csv("datasets/la_cime.csv")
 print(df["LAT"].describe())
 print(df["LON"].describe())
 
+# Filter to only ASSAULT_WITH_DEADLY_WEAPON since the dataset is too large
 VEHICULE_THEFT = 510
 ASSAULT_WITH_DEADLY_WEAPON = 230
 df = df[df["Crm Cd"] == ASSAULT_WITH_DEADLY_WEAPON]
