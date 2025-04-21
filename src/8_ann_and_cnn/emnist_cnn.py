@@ -32,8 +32,7 @@ class EMNISTDataset(Dataset):
     def __getitem__(self, idx):
         digit = self.train_digits[idx]
         label = self.train_labels[idx]
-        if self.transform:
-            digit = self.transform(digit)
+        digit = self.transform(digit)
         return digit, label
     
     def __len__(self):
@@ -44,7 +43,7 @@ class ConvBlock(nn.Module):
     """ Convolutional Block with Conv2d, BatchNorm2d and ReLU activation """
     def __init__(self, in_channels, out_channels, kernel_size=3, padding=1):
         super(ConvBlock, self).__init__()
-        self.conv = nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1)
+        self.conv = nn.Conv2d(in_channels, out_channels, kernel_size=kernel_size, padding=padding)
         self.bn = nn.BatchNorm2d(out_channels)
         self.relu = nn.ReLU()
     
@@ -62,10 +61,9 @@ class EMNISTCNN(nn.Module):
         self.conv1 = ConvBlock(1, 32, 5, 2)
         self.conv2 = ConvBlock(32, 64) 
         self.conv3 = ConvBlock(64, 128) 
-        self.conv4 = ConvBlock(128, 256)
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.dropout = nn.Dropout(0.03)
-        self.fc1 = nn.Linear(256 * 3 * 3, 128)
+        self.dropout = nn.Dropout(0.2)
+        self.fc1 = nn.Linear(128 * 7 * 7, 128)
         self.fc2 = nn.Linear(128, 26)
     
     def forward(self, x):
@@ -77,8 +75,6 @@ class EMNISTCNN(nn.Module):
         x = self.pool(x) # 64 x 7 x 7
         x = self.dropout(x)
         x = self.conv3(x) # 128 x 7 x 7
-        x = self.conv4(x) # 256 x 7 x 7
-        x = self.pool(x) # 256 x 3 x 3
         x = self.dropout(x)
         x = x.view(x.size(0), -1)
         x = self.fc1(x)
