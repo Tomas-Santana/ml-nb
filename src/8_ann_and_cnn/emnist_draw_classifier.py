@@ -3,10 +3,12 @@ import tkinter as tk
 from tkinter import Canvas
 from PIL import Image, ImageOps
 import numpy as np
-from emnist_cnn import EMNISTCNN, CLASS_MAP
+from emnist_cnn import EMNISTCNN
+# ascii letters
+import string
 
 class LetterClassifierApp:
-    def __init__(self, root, model_path="src/8_ann_and_cnn/checkpoints/emnist_cnn_epoch_10.pth"):
+    def __init__(self, root, model_path="src/8_ann_and_cnn/weights/model.pth"):
         self.model_path = model_path
         
         # Create the main window, canvas and buttons for the GUI
@@ -53,7 +55,7 @@ class LetterClassifierApp:
         with torch.no_grad():
             output = self.model(image_tensor)
             prediction = torch.argmax(output, dim=1).item()
-            self.label.config(text=f"Predicted Letter: {CLASS_MAP[prediction]}")
+            self.label.config(text=f"Predicted Letter: {prediction} ({string.ascii_letters[prediction]})")
 
     def clear_canvas(self):
         self.canvas.delete("all")

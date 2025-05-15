@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("src/6/random_forest_data/rf_feature_importance.csv")
+df = pd.read_csv("src/6_random_forest_and_bagging_classifiers/random_forest_data/rf_feature_importance.csv")
 
 """
 Visualize the feature importances of the Random Forest classifier trained on the Fashion MNIST dataset.
@@ -29,7 +29,9 @@ def plot_importances(df: pd.DataFrame):
         importances[y][x] = df.iloc[i]['importance']
 
     # Plot the importances as a heatmap
+    plt.title("Random Forest Feature Importances")
     plt.imshow(importances, cmap='hot', interpolation='nearest')
+    plt.savefig("src/6_random_forest_and_bagging_classifiers/imgs/rf_importances.png")
     plt.show()
 
 if __name__ == "__main__":
