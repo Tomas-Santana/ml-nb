@@ -8,7 +8,7 @@ from emnist_cnn import EMNISTCNN
 import string
 
 class LetterClassifierApp:
-    def __init__(self, root, model_path="src/8_ann_and_cnn/weights/model.pth"):
+    def __init__(self, root, model_path="src/8_ann_and_cnn/weights/model.weight"):
         self.model_path = model_path
         
         # Create the main window, canvas and buttons for the GUI
