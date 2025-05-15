@@ -1,4 +1,4 @@
-# Notebook Check 7. KMeans clustering
+# Notebook Check 7. K-Means clustering
 
 For this project, we implemented KMeans clustering to get crime clusters in the city of Los Angeles. The dataset used is the [LA Crime data from 2020 to present](https://catalog.data.gov/dataset/crime-data-from-2020-to-present). Since the dataset is too large, only assault with deadly weapon was clustered. 3 clusters were selected using the elbow method. The following are the were the following:
 
